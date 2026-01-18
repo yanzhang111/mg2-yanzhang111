@@ -4,15 +4,24 @@ using UnityEngine;
 
 public class Coin : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public float speed = 4f;
 
-    // Update is called once per frame
     void Update()
     {
-        
+    
+        transform.Translate(Vector2.left * speed * Time.deltaTime);
+
+        if (transform.position.x < -15f)
+        {
+            Destroy(gameObject);
+        }
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            GameController.instance.AddPoint();
+            Destroy(gameObject);
+        }
     }
 }
